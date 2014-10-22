@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+if [ -z "$EXPERIMENTS_DIR" ]; then
+  EXPERIMENTS_DIR=~/code/experiments
+fi
+
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+if [ $# -eq 0 ]; then
+    echo "Specify a template name from"
+    find $DIR -depth 1 -type d -exec basename {} \;
+    exit
+fi
+
+if [ ! -d "$DIR/$1" ]; then
+  echo "Can't find template $1"
+  exit
+fi
+
+if [ $# -eq 1 ]; then
+  DEST=$(date | md5)
+else
+  DEST=$2
+fi
+
+echo "Copying template to ${EXPERIMENTS_DIR}/${DEST}"
+cp -r "${DIR}/${1}" "${EXPERIMENTS_DIR}/$DEST"
+pushd "${EXPERIMENTS_DIR}/${DEST}" > /dev/null
+export LAST_EXPERIMENT="${EXPERIMENTS_DIR}/${DEST}"
+
+if [ -f "./.bootstrap.sh" ]; then
+  echo "Running Bootstrap"
+  ./.bootstrap.sh
+fi
+
