@@ -10,7 +10,7 @@ editors, daemons, more templating, etc.
 $ template templatename [dest]
 ```
 
-A random directory will be created in `$EXPERIMENTS_DIR` if no dest is specified.
+A directory (based on the date) will be created in `$EXPERIMENTS_DIR` if no dest is specified.
 
 ## Auto completetion
 
