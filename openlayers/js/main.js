@@ -1,58 +1,68 @@
 (function() {
 
-  var points = [[ 43.1762,-71.1819,174 ],
-    [ 43.1684,-71.1711,158 ],
-    [ 43.1753,-71.1826,145 ],
-    [ 43.1670,-71.1694,151 ],
-    [ 43.1750,-71.1832,176 ],
-    [ 43.1746,-71.1835,174 ],
-    [ 43.1746,-71.1835,174 ],
-    [ 43.1746,-71.1832,168 ],
-    [ 43.1744,-71.1826,165 ],
-    [ 43.1737,-71.1836,170 ],
-    [ 43.1732,-71.1834,169 ],
-    [ 43.1713,-71.1852,186 ],
-    [ 43.1707,-71.1845,195 ],
-    [ 43.1718,-71.1817,143 ],
-    [ 43.1775,-71.1802,168 ],
-    [ 43.1764,-71.1809,144 ]];
+  var points = [[ 43.5,-71.5,174 ],
+    [ 43.4,-71.4,158 ],
+    [ 43.3,-71.3,145 ]
+  ];
 
-  var map = new OpenLayers.Map('#map', {
-    allOverlays: true
-  });
+  var layers = [];
 
-  map.addLayer(new OpenLayers.Layer.OSM());
-  var gphy = new OpenLayers.Layer.Google(
-    "Google Physical",
-    {type: google.maps.MapTypeId.TERRAIN}
-    // used to be {type: G_PHYSICAL_MAP}
-  );
-  map.addLayer(gphy);
+  var center = new ol.geom.Point([ -71.5, 43.5]);
+  center.transform('EPSG:4326', 'EPSG:3857');
 
-  var gsat = new OpenLayers.Layer.Google(
-    "Google Satellite",
-    {
-      type: google.maps.MapTypeId.SATELLITE,
-      numZoomLevels: 23,
-      MAX_ZOOM_LEVEL: 22
-    }
-  );
-  map.addLayer(gsat);
+  var bingMapsLayer = new ol.layer.Tile({
+    visible: true,
+    preload: Infinity,
+    source: new ol.source.BingMaps({
+      key: 'AhBaGnyj9dWdEkCNmrmmaNfv7ItIkIbBtLg2ED5BMCLImGk5yv6miU9OPtvAqeUk',
+      imagerySet: 'Aerial'
+      // use maxZoom 19 to see stretched tiles instead of the BingMaps
+      // "no photos at this zoom level" tiles
+      // maxZoom: 19
+    })
+  })
+  layers.push(bingMapsLayer);
 
-  // controls
-  map.addControl(new OpenLayers.Control.LayerSwitcher());
-  map.addControl(new OpenLayers.Control.PanZoomBar());
-
-
-  var wayLayer = new OpenLayers.Layer.Vector('points');
+  var features = new ol.source.Vector();
 
   _.each(points, function(data) {
-    var wayPoint = OpenLayers.Geometry.Point(data[0], data[1]);
-    wayPoint = wayPoint.transform(proj, map.getProjectionObject());
-    var addWayPoint = new OpenLayers.Feature.Vector(wayPoint, null); 
-    wayLayer.addFeatures([addWayPoint]); 
+     var wayPoint = new ol.geom.Point([data[1], data[0]]);
+     wayPoint.transform('EPSG:4326', 'EPSG:3857');
+     var wayPointFeature = new ol.Feature({
+       geometry: wayPoint
+     });
+     features.addFeature(wayPointFeature);
   });
 
-  map.addLayer(wayLayer);
-  
+  var wayLayer = new ol.layer.Vector({
+    title: 'Points',
+    source: features,
+    style: new ol.style.Style({
+      image: new ol.style.Circle({
+        radius: 3,
+        fill: new ol.style.Fill({color: 'red'})
+      })
+    })
+  });
+  layers.push(wayLayer);
+
+  var map = new ol.Map({
+    controls: ol.control.defaults().extend([
+      new ol.control.FullScreen()
+    ]),
+    view: new ol.View({
+      center: center.getCoordinates(),
+      zoom: 16
+    }),
+    renderer: undefined,
+    layers: layers,
+    target: 'map'
+  });
+
+  // controls
+  map.addControl(new ol.control.ZoomSlider());
+  map.addControl(new ol.control.MousePosition({
+    projection: 'EPSG:4326'
+  }));
+
 })();
