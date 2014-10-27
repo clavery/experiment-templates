@@ -20,7 +20,7 @@ Simple ZSH autocompletion with an alias can be accomplished via:
 export _TEMPLATE_PATH=$HOME/code/templates
 alias template="${_TEMPLATE_PATH}/template"
 function _completetemplate {
-  reply=($(find $_TEMPLATE_PATH -type d -depth 1 -exec basename {} \;))
+  reply=($(find $_TEMPLATE_PATH -type d -depth 1 -not -name ".git"))
 }
 compctl -K _completetemplate template
 ```
