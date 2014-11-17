@@ -33,10 +33,11 @@
       return [this.props.people];
     },
     render: function() {
-      return  (
+      var people = this.props.people;
+      return (
         <ul>
-          {this.props.people.map(function(person, i){
-            return <li key={person.id}>{i} Person {person.get('name')}</li>
+          {people.map(function(person, i) {
+            return <li key={person.cid}>{person.id} {person.get('name')}</li>;
           })}
         </ul>
       );
