@@ -10,6 +10,10 @@ module.exports = function (grunt) {
         options: {
           livereload: 35720,
         }
+      },
+      bower: {
+        files: ['bower_components/*'],
+        tasks: ['wiredep']
       }
     },
     connect: {
