@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Bar {
+export default class Bar extends React.Component {
   render () {
     return (
       <div>
@@ -9,6 +9,3 @@ class Bar {
     );
   }
 }
-
-// as of 0.12 still need to wrap in React.createClass
-export default React.createClass(Bar.prototype)
