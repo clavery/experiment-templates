@@ -7,7 +7,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     watch: {
       js: {
-        files: ['js/**/*.jsx'],
+        files: ['js/**/*.{jsx,js}'],
         tasks: ['browserify']
       }
     },
