@@ -1,10 +1,8 @@
 import React from 'react';
 import Bar from './components/bar';
-import _ from 'underscore';
 import Director from 'director';
 
 import { Model, Collection, LocalStorage } from 'backbone';
-
 
 class App extends React.Component {
   constructor() {
@@ -40,4 +38,4 @@ global.app = function() {
 };
 
 //debug
-global.React = React;
+window.React = React;
