@@ -18,7 +18,8 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loaders: ['react-hot', '6to5-loader?sourceMap=true']},
+      { test: /\.js$/, exclude: /node_modules/, loaders: ['6to5-loader?sourceMap=true']},
+      { test: /\.jsx$/, exclude: /node_modules/, loaders: ['react-hot', '6to5-loader?sourceMap=true']},
       { test: /\.css$/, exclude: /node_modules/, loaders: ['style', 'css?sourceMap']},
       { test: /\.scss$/, exclude: /node_modules/, loaders: ['style', 'css?sourceMap', 'sass']}
     ]
