@@ -7,12 +7,15 @@ module.exports = function(grunt) {
   grunt.initConfig({
     watch: {
       js: {
-        files: ['js/**/*.{jsx,js}'],
-        tasks: ['browserify']
+        files: ['dist/app.js'],
+        tasks: []
+      },
+      options: {
+        livereload: 35721
       }
     },
     browserify: {
-      dist: {
+      dev: {
         files: {
           'dist/app.js': ['js/**/*.{jsx,js}'],
         },
@@ -21,11 +24,19 @@ module.exports = function(grunt) {
             debug: true, // sourcemaps
             extensions: ['.jsx', '.js'] // consider jsx files as modules
           },
+          watch: true,
           transform: [to5ify]
+        }
+      }
+    },
+    connect: { 
+      all: {
+        options: {
+          base: "."
         }
       }
     }
   });
 
-  grunt.registerTask("default", ["browserify", "watch"]);
+  grunt.registerTask("default", ["connect", "browserify", "watch"]);
 };

@@ -1,6 +1,8 @@
 import React from 'react';
 import _ from 'underscore';
 
+import BarStyle from '../styles/bar.js';
+
 export default class Bar extends React.Component {
   static get propTypes() {
     return {
@@ -16,17 +18,9 @@ export default class Bar extends React.Component {
 
   render() {
     return (
-      <div style={styles.Bar}>
+      <div style={BarStyle.Count}>
         Foobar {this.props.initialCount}
       </div>
     );
   }
 }
-
-var randomColor = Array(1,2,3).map(() => { return Math.round(Math.random() * 255) });
-
-var styles = {
-  Bar: {
-    color: `rgb(${randomColor.join(',')})`
-  }
-};
