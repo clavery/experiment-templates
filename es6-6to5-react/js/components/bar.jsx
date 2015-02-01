@@ -1,24 +1,26 @@
 import React from 'react';
-import _ from 'underscore';
 
+import {m} from '../util';
 
 export default class Bar extends React.Component {
   static get propTypes() {
     return {
-      initialCount: React.PropTypes.number 
+      count: React.PropTypes.number 
     };
   }
 
   static get defaultProps() {
     return {
-      initialCount: 20
+      count: 20
     };
   }
 
   render() {
+    var count = this.props.count;
+
     return (
-      <div style={styles.Count}>
-        Foobar {this.props.initialCount}
+      <div style={m(styles.Count, (count % 2 == 0) && styles.Toggled)}>
+        Foobar {count}
       </div>
     );
   }
@@ -31,5 +33,8 @@ var styles = {
   Count: {
     color: `rgb(${randomColor.join(',')})`,
     fontSize: 24
+  },
+  Toggled: {
+    fontWeight: 'bold'
   }
 };

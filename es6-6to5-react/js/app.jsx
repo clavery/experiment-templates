@@ -16,7 +16,7 @@ class App extends React.Component {
   componentDidMount() {
     var router = Director.Router({
       '/foo': this.setState.bind(this, {count: 10}),
-      '/bar': this.setState.bind(this, {count: 30}),
+      '/bar': this.setState.bind(this, {count: 11}),
     });
     router.init('/foo');
   }
@@ -24,7 +24,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Bar initialCount={this.state.count} />
+        <Bar count={this.state.count} />
       </div>
     );
   }
