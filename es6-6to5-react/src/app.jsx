@@ -2,7 +2,9 @@ import React from 'react';
 import Bar from './components/bar';
 import Director from 'director';
 
-import { Model, Collection, LocalStorage } from 'backbone';
+//import { Model, Collection, LocalStorage } from 'backbone';
+
+import './style.scss';
 
 var App = React.createClass({
   getInitialState () {
@@ -37,4 +39,4 @@ global.app = function() {
 };
 
 //debug
-window.React = React;
+global.React = React;

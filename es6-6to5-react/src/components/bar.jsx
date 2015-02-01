@@ -21,13 +21,15 @@ var Bar = React.createClass({
         (count % 2 == 0) && styles.Toggled,
         this.props.style
       )}>
-        {count}
+      Foobar: {count}<br/>
+      
+      <input type="text" />
       </div>
     );
   }
 });
 
-var randomColor = Array(1,2,3).map(() => { return Math.round(Math.random() * 255) });
+var randomColor = Array(1,2,3).map(() => Math.round(Math.random() * 255));
 
 var styles = {
   Count: {
@@ -36,7 +38,7 @@ var styles = {
   },
   Toggled: {
     fontWeight: 'bold',
-    fontSize: 30
+    fontSize: 40
   }
 };
 
