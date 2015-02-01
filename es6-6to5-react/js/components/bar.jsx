@@ -2,30 +2,30 @@ import React from 'react';
 
 import {m} from '../util';
 
-export default class Bar extends React.Component {
-  static get propTypes() {
-    return {
-      count: React.PropTypes.number 
-    };
-  }
+var Bar = React.createClass({
+  propTypes: {
+    count: React.PropTypes.number,
+    style: React.PropTypes.object
+  },
 
-  static get defaultProps() {
-    return {
-      count: 20
-    };
-  }
+  defaultProps: {
+    count: 20
+  },
 
   render() {
     var count = this.props.count;
 
     return (
-      <div style={m(styles.Count, (count % 2 == 0) && styles.Toggled)}>
-        Foobar {count}
+      <div style={m(
+        styles.Count,
+        (count % 2 == 0) && styles.Toggled,
+        this.props.style
+      )}>
+        {count}
       </div>
     );
   }
-}
-
+});
 
 var randomColor = Array(1,2,3).map(() => { return Math.round(Math.random() * 255) });
 
@@ -35,6 +35,9 @@ var styles = {
     fontSize: 24
   },
   Toggled: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontSize: 30
   }
 };
+
+export default Bar

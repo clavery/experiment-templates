@@ -4,14 +4,10 @@ import Director from 'director';
 
 import { Model, Collection, LocalStorage } from 'backbone';
 
-class App extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      count: 10
-    };
-  }
+var App = React.createClass({
+  getInitialState () {
+    return {count: 10};
+  },
 
   componentDidMount() {
     var router = Director.Router({
@@ -19,17 +15,20 @@ class App extends React.Component {
       '/bar': this.setState.bind(this, {count: 11}),
     });
     router.init('/foo');
-  }
+  },
 
   render() {
     return (
       <div>
-        <Bar count={this.state.count} />
+        <Bar count={this.state.count} style={styles} />
       </div>
     );
   }
-}
+});
 
+var styles = {
+  fontFamily: 'monospace'
+};
 
 global.app = function() {
   var body = document.getElementsByTagName('body')[0];
