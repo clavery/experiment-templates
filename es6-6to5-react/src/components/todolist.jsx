@@ -1,14 +1,14 @@
-
 import React from 'react';
 
 import {m} from '../util';
+import Component from '../component';
 
 import TodoItem from './todoitem';
 
-var TodoList = React.createClass({
-  propTypes: {
+export default class TodoList extends Component {
+  static get propTypes() {
     todos: React.PropTypes.object
-  },
+  }
 
   render() {
     var todos = this.props.todos;
@@ -25,6 +25,5 @@ var TodoList = React.createClass({
       </div>
     );
   }
-});
+}
 
-export default TodoList
