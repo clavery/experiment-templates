@@ -1,5 +1,19 @@
 import _ from 'underscore';
 
+
+var BackboneMixin = {
+  componentDidMount: function () {
+    this.getBackboneCollections().forEach(function (collection) {
+      collection.on('add remove change', this.forceUpdate.bind(this, null));
+    }, this);
+  },
+  componentWillUnmount: function () {
+    this.getBackboneCollections().forEach(function (collection) {
+      collection.off(null, null, this);
+    }, this);
+  }
+};
+
 /**
  * Return a new object merging all truthy arguments
  *
@@ -15,4 +29,4 @@ function m() {
   return res;
 }
 
-export {m}
+export {m, BackboneMixin }

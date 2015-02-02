@@ -1,12 +1,21 @@
 import React from 'react';
-import Bar from './components/bar';
 import Director from 'director';
 
-//import { Model, Collection, LocalStorage } from 'backbone';
+import { BackboneMixin } from './util';
+import TodoList from './components/todolist';
+import { Todo, Todos } from './models/todo';
 
 import './style.scss';
 
+var todoCollection = new Todos();
+
 var App = React.createClass({
+  mixins: [BackboneMixin],
+
+  getBackboneCollections() {
+    return [this.props.todoCollection]
+  },
+
   getInitialState () {
     return {count: 10};
   },
@@ -22,7 +31,7 @@ var App = React.createClass({
   render() {
     return (
       <div>
-        <Bar count={this.state.count} style={styles} />
+        <TodoList todos={this.props.todoCollection} />
       </div>
     );
   }
@@ -35,7 +44,8 @@ var styles = {
 global.app = function() {
   var body = document.getElementsByTagName('body')[0];
 
-  React.render(<App />, body);
+  React.render(<App todoCollection={todoCollection} />, body);
+  todoCollection.fetch();
 };
 
 //debug
