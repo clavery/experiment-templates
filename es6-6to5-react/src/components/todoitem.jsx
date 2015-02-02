@@ -14,12 +14,18 @@ var TodoItem = React.createClass({
     var todo = this.props.todo;
 
     return (
-      <div>
-      {todo.get('desc')}
+      <div style={styles}>
+      Desc2: {todo.get('desc')}
       </div>
     );
   }
 });
+
+var randomColor = Array(1,2,3).map( () => Math.round(Math.random() * 255) );
+
+var styles = {
+  color: `rgb(${randomColor.join(',')})`
+};
 
 export default TodoItem
 

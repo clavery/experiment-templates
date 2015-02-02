@@ -26,6 +26,7 @@ var App = React.createClass({
       '/bar': this.setState.bind(this, {count: 11}),
     });
     router.init('/foo');
+    this.props.todoCollection.fetch();
   },
 
   render() {
@@ -37,15 +38,10 @@ var App = React.createClass({
   }
 });
 
-var styles = {
-  fontFamily: 'monospace'
-};
-
 global.app = function() {
   var body = document.getElementsByTagName('body')[0];
 
   React.render(<App todoCollection={todoCollection} />, body);
-  todoCollection.fetch();
 };
 
 //debug
