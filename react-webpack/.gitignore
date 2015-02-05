@@ -1,0 +1,6 @@
+dist/
+node_modules/
+
+#prod builds
+app.js
+app.js.map
