@@ -12,13 +12,15 @@ if (!_production) {
 BOOSTRAP_PATH="./node_modules/bootstrap-sass/assets/stylesheets/"
 
 module.exports = {
-  devtool: 'eval',
-  pathinfo: true,
+  devtool: _production ? false : 'eval',
   entry: {
     app: ENTRIES
   },
   output: {
-    filename: 'app.js'
+    pathinfo: !_production,
+    publicPath: '/dist/',
+    path: __dirname + "/dist",
+    filename: 'app.js',
   },
   module: {
     loaders: [
