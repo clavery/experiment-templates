@@ -1,20 +1,28 @@
-var React = require('react');
+var React = require('react/addons');
 var {m}  = require('../util');
 
 module.exports = React.createClass({
+  mixins: [React.addons.LinkedStateMixin],
+
+  getInitialState: function() {
+    return {value: 'Hello!'};
+  },
+
   propTypes: {
     todo: React.PropTypes.object
   },
 
   render: function() {
     var todo = this.props.todo;
+    var val = this.state.value;
 
     return (
       <li className="list-group-item" style={styles}>
         <span className="badge">
           <span className="glyphicon glyphicon-ok"></span>
         </span>
-        <p>Desc: {todo.get('desc')}</p>
+        <p>Desc: {todo.get('desc')} {val}</p>
+        <input type="text" valueLink={this.linkState('value')} />
       </li>
     );
   }

@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "appcache-webpack-plugin": "^0.1.1",
     "css-loader": "^0.9.1",
     "file-loader": "^0.8.1",
     "react-hot-loader": "^1.1.4",

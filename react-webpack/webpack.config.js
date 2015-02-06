@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var AppCachePlugin = require('appcache-webpack-plugin');
 
 var _production = !!process.env.PROD;
 
@@ -39,5 +40,12 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
-  }
+  },
+  plugins: [
+    new AppCachePlugin({
+      cache: [],
+      network: null,  // No network access allowed!
+      fallback: []
+    })
+  ]
 };
