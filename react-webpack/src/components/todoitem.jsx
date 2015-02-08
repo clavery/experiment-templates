@@ -1,7 +1,7 @@
 var React = require('react/addons');
 var {m}  = require('../util');
 
-module.exports = React.createClass({
+var TodoItem = React.createClass({
   mixins: [React.addons.LinkedStateMixin],
 
   getInitialState: function() {
@@ -35,3 +35,4 @@ var styles = {
 };
 
 
+module.exports = TodoItem;

@@ -2,7 +2,7 @@ var React = require('react');
 var m = require('../util').m;
 var TodoItem = require('./todoitem');
 
-module.exports = React.createClass({
+var TodoList = React.createClass({
   getPropTypes: function() {
     todos: React.PropTypes.object
   },
@@ -26,3 +26,4 @@ module.exports = React.createClass({
   }
 });
 
+module.exports = TodoList;
