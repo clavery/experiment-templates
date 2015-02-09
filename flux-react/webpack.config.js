@@ -27,6 +27,7 @@ module.exports = {
     loaders: [
       { test: /\.js$/, exclude: /node_modules/, loaders: ['jsx-loader?harmony']},
       { test: /\.jsx$/, exclude: /node_modules/, loaders: ['react-hot', 'jsx-loader?harmony']},
+      { test: /\.json$/, exclude: /node_modules/, loaders: ['json-loader']},
       { test: /\.css$/, exclude: /node_modules/, loaders: ['style', 'css?sourceMap']},
       { 
         test: /\.scss$/, exclude: /node_modules/, loaders: ['style', 'css',
@@ -47,5 +48,8 @@ module.exports = {
       network: null,  // No network access allowed!
       fallback: []
     })
-  ]
+  ],
+  externals: {
+    "aws-sdk": "AWS"
+  }
 };

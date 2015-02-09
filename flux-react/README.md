@@ -3,7 +3,7 @@
 Boilerplate with React 12.2 using webpack as a module system and build tool.
 Includes hot module reloading (HMR) for react components and stylesheets.
 
-Flux data architecture
+Partial flux data architecture. View's directly call stores.
 
 
 ## Install

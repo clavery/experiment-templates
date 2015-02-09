@@ -1,24 +1,19 @@
 var React = require('react');
 var Director = require('director');
 
-var m = require('./util').m;
-var BackboneMixin = require('./util').BackboneMixin;
-var {Todo, Todos} = require('./models/todo');
 var TodoList = require('./components/todolist');
-
+var TodoStore = require('./stores/todo');
 
 var style = require('./style.scss');
-var todoCollection = new Todos();
-
 
 var App = React.createClass({
-  mixins: [BackboneMixin],
   getInitialState: function() {
-    return {count: 10};
+    return {
+      count: 10,
+      todos: []
+    };
   },
-  getBackboneCollections: function() {
-    return [this.props.todoCollection]
-  },
+
   componentDidMount: function() {
     var router = Director.Router({
       '/foo': this.setState.bind(this, {count: 10}),
@@ -26,21 +21,27 @@ var App = React.createClass({
     });
 
     router.init('/foo');
-    this.props.todoCollection.fetch();
+
+    TodoStore.addChangeListener(() => {
+      this.setState({ todos: TodoStore.getTodos()});
+    });
+
+    TodoStore.fetchTodos();
   },
+
   render: function() {
     return (
       <div>
-        <TodoList todos={this.props.todoCollection} />
+        <p><a href='#bar'>URL 1</a> | <a href="#foo">URL 2</a></p>
+        <p><b>{this.state.count}</b></p>
+        <TodoList todos={this.state.todos} />
       </div>
     );
   }
 });
 
-
-global.app = function() {
-  React.render(<App todoCollection={todoCollection} />, document.body);
-};
-
 //debug
 global.React = React;
+
+React.render(<App />, document.body);
+
