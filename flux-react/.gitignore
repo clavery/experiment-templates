@@ -1,6 +1,6 @@
 dist/
 node_modules/
-src/aws-config.json
+aws-config.json
 
 #prod builds
 app.js

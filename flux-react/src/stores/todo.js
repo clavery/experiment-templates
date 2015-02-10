@@ -36,10 +36,22 @@ var TodoStore = assign({}, EventEmitter.prototype, {
     });
   },
 
+  createTodo(text) {
+    var id = Math.round(Math.random() * 10000);
+    todoCollection.create({_id: id, desc: text});
+    this.emit(CHANGE_EVENT);
+  },
+
+  removeTodo(id) {
+    var todo = todoCollection.get(id);
+    todo.destroy();
+    this.emit(CHANGE_EVENT);
+  },
+
   updateTodo(id, text) {
     var todo = todoCollection.get(id);
     todo.set({desc: text});
-    // TODO we're not actually saving to server here
+    // TODO 
     // soft change event
     todo.save();
     this.emit(CHANGE_EVENT);

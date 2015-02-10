@@ -2,27 +2,6 @@ var React = require('react/addons');
 var {m}  = require('../util');
 var TodoStore = require('../stores/todo');
 
-var TodoItemEditor = React.createClass({
-  _onKeyDown(event) {
-    if (event.keyCode === 13) {
-      this.props.onSave(event.target.value);
-    }
-  },
-
-  componentDidMount() {
-    this.refs.textInput.getDOMNode().focus();
-    this.refs.textInput.getDOMNode().select();
-  },
-
-  render() {
-    return (
-      <p>
-        <input type="text" ref="textInput" defaultValue={this.props.todo.get('desc')}
-          onKeyDown={this._onKeyDown} />
-      </p>
-    );
-  }
-});
 
 var TodoItem = React.createClass({
   getInitialState() {
@@ -33,13 +12,22 @@ var TodoItem = React.createClass({
     todo: React.PropTypes.object
   },
 
-  _onSave(newValue) {
-    TodoStore.updateTodo(this.props.todo.id, newValue);
-    this.setState({ editing: false });
+  _onKeyDown(event) {
+    if (event.keyCode === 13) {
+      TodoStore.updateTodo(this.props.todo.id, event.target.value);
+      this.setState({ editing: false });
+    }
   },
 
   _editTodo() {
-    this.setState({ editing: true });
+    this.setState({ editing: true }, () => {
+      this.refs.textInput.getDOMNode().focus();
+      this.refs.textInput.getDOMNode().select();
+    });
+  },
+
+  _removeTodo() {
+    TodoStore.removeTodo(this.props.todo.id);
   },
 
   render() {
@@ -48,7 +36,10 @@ var TodoItem = React.createClass({
 
     if (this.state.editing) {
       todoBody = (
-        <TodoItemEditor todo={todo} onSave={this._onSave} />
+        <p>
+          <input type="text" ref="textInput" defaultValue={this.props.todo.get('desc')}
+            onKeyDown={this._onKeyDown} />
+        </p>
       );
     } else {
       todoBody = (
@@ -61,7 +52,7 @@ var TodoItem = React.createClass({
     return (
       <li className="list-group-item" style={styles}>
         <span className="badge">
-          <span className="glyphicon glyphicon-ok"></span>
+          <span className="glyphicon glyphicon-remove" onClick={this._removeTodo}></span>
         </span>
         {todoBody}
       </li>
