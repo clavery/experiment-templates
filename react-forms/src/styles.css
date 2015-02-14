@@ -1,0 +1,8 @@
+body {
+}
+input {
+  display: block;
+}
+.invalid.dirty {
+  border: 1px solid red;
+}

@@ -1,0 +1,7 @@
+dist/
+node_modules/
+aws-config.json
+
+#prod builds
+app.js
+app.js.map
