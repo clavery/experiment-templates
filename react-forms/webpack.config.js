@@ -10,7 +10,7 @@ if (!_production) {
   ENTRIES.unshift('webpack/hot/dev-server');
 }
 
-BOOSTRAP_PATH="./node_modules/bootstrap-sass/assets/stylesheets/"
+BOOSTRAP_PATH="./node_modules/bootstrap-sass/assets/stylesheets/";
 
 module.exports = {
   devtool: _production ? false : 'eval',
@@ -28,7 +28,7 @@ module.exports = {
       { test: /\.js$/, exclude: /node_modules/, loaders: ['jsx-loader?harmony']},
       { test: /\.jsx$/, exclude: /node_modules/, loaders: ['react-hot', 'jsx-loader?harmony']},
       { test: /\.json$/, exclude: /node_modules/, loaders: ['json-loader']},
-      { test: /\.css$/, exclude: /node_modules/, loaders: ['style', 'css?sourceMap']},
+      { test: /\.css$/, loaders: ['style', 'css?sourceMap']},
       { 
         test: /\.scss$/, exclude: /node_modules/, loaders: ['style', 'css',
         'sass?outputStyle=expanded&includePaths[]=' + (path.resolve(__dirname, BOOSTRAP_PATH))
@@ -47,9 +47,13 @@ module.exports = {
       cache: [],
       network: null,  // No network access allowed!
       fallback: []
+    }),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery"
     })
   ],
   externals: {
     "aws-sdk": "AWS"
-  }
+  },
 };
