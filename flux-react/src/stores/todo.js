@@ -1,26 +1,14 @@
 var {EventEmitter} = require('events');
 var assign = require('object-assign');
-var Backbone = require('backbone');
-var {AWSModel, AWSCollection} = require('../awsbackend');
+var Dispatcher = require('../dispatcher');
+var {TodoActionTypes} = require('../constants');
 
 var CHANGE_EVENT = 'change';
 
-var Todo = AWSModel.extend({
-  idAttribute: "_id",
-  defaults: {
-    desc: ''
-  }
-});
-
-var TodoCollection = AWSCollection.extend({
-  model: Todo,
-  url: 'todos.json'
-});
-
-var todoCollection = new TodoCollection();
-
-
 var TodoStore = assign({}, EventEmitter.prototype, {
+  loading : false,
+  todos : [],
+
   addChangeListener(cb) {
     this.on(CHANGE_EVENT, cb);
   },
@@ -28,38 +16,27 @@ var TodoStore = assign({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, cb);
   },
 
-  fetchTodos() {
-    todoCollection.fetch({
-      success: () => {
-        this.emit(CHANGE_EVENT);
-      }
-    });
+  _registerWithDispatcher() {
+    Dispatcher.register(TodoActionTypes.TODOS_FETCH, this._loadingTodos.bind(this));
+    Dispatcher.register(TodoActionTypes.TODOS_FETCH_SUCCESS, this._todosLoaded.bind(this));
   },
 
-  createTodo(text) {
-    var id = Math.round(Math.random() * 10000);
-    todoCollection.create({_id: id, desc: text});
+  _loadingTodos() {
+    this.loading = true;
     this.emit(CHANGE_EVENT);
   },
 
-  removeTodo(id) {
-    var todo = todoCollection.get(id);
-    todo.destroy();
-    this.emit(CHANGE_EVENT);
-  },
-
-  updateTodo(id, text) {
-    var todo = todoCollection.get(id);
-    todo.set({desc: text});
-    // TODO 
-    // soft change event
-    todo.save();
+  _todosLoaded(todos) {
+    this.loading = false;
+    this.todos = todos;
     this.emit(CHANGE_EVENT);
   },
 
   getTodos() {
-    return todoCollection.models;
+    return this.todos;
   }
 });
+
+TodoStore._registerWithDispatcher();
 
 module.exports = TodoStore;

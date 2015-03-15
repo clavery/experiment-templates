@@ -21,14 +21,19 @@ var TodoList = React.createClass({
 
     var todoItems = this.props.todos.map(function (todo) {
       return (
-        <TodoItem key={todo.id} todo={todo} />
+        <TodoItem key={todo._id} todo={todo} />
       );
     });
 
+    var classes = "";
+    if (this.props.isLoading) {
+      classes = "loading";
+    }
+
     return (
-      <div>
+      <div className={classes}>
         <form>
-          <div class="form-group">
+          <div className="form-group">
             <label>New Todo</label>
             <input type="text" className="form-control" ref="newInput" 
               onKeyDown={this.createNewTodo} />

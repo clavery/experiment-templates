@@ -1,25 +1,11 @@
 var _ = require('underscore');
 
-
-exports.BackboneMixin = {
-  componentDidMount: function () {
-    this.getBackboneCollections().forEach(function (collection) {
-      collection.on('add remove change', this.forceUpdate.bind(this, null));
-    }, this);
-  },
-  componentWillUnmount: function () {
-    this.getBackboneCollections().forEach(function (collection) {
-      collection.off(null, null, this);
-    }, this);
-  }
-};
-
 /**
  * Return a new object merging all truthy arguments
  *
  * @returns {object}
  */
-function m() {
+exports.m = function m() {
   var res = {};
   for (var i=0; i < arguments.length; i++) {
     if (arguments[i]) {
@@ -29,4 +15,21 @@ function m() {
   return res;
 }
 
-exports.m = m;
+/**
+ * Keys To Values (ktov)
+ *
+ * Sets the values of all properties of an object to it's key name
+ *
+ * @param obj {object} Source Object
+ * @returns {object}
+ */
+exports.ktov = function keysToValues(obj) {
+  var newObj = {};
+  for (var k in obj) {
+    if (obj.hasOwnProperty(k)) {
+      newObj[k] = k;
+    }
+  }
+  return newObj;
+}
+

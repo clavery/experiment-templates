@@ -1,6 +1,7 @@
 var React = require('react/addons');
 var {m}  = require('../util');
 var TodoStore = require('../stores/todo');
+var {TodoActionCreators} = require('../action_creators');
 
 
 var TodoItem = React.createClass({
@@ -14,7 +15,7 @@ var TodoItem = React.createClass({
 
   _onKeyDown(event) {
     if (event.keyCode === 13) {
-      TodoStore.updateTodo(this.props.todo.id, event.target.value);
+      TodoStore.updateTodo(this.props.todo._id, event.target.value);
       this.setState({ editing: false });
     }
   },
@@ -27,7 +28,7 @@ var TodoItem = React.createClass({
   },
 
   _removeTodo() {
-    TodoStore.removeTodo(this.props.todo.id);
+    TodoActionCreators.deleteTodo(this.props.todo._id);
   },
 
   render() {
@@ -37,14 +38,14 @@ var TodoItem = React.createClass({
     if (this.state.editing) {
       todoBody = (
         <p>
-          <input type="text" ref="textInput" defaultValue={this.props.todo.get('desc')}
+          <input type="text" ref="textInput" defaultValue={this.props.todo.desc}
             onKeyDown={this._onKeyDown} />
         </p>
       );
     } else {
       todoBody = (
         <p onClick={this._editTodo}>
-          {todo.get('desc')}
+          {todo.desc}
         </p>
       );
     }

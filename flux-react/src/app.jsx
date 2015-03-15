@@ -1,47 +1,38 @@
 var React = require('react');
 var Director = require('director');
+var TodoController = require('./todo_controller');
+var _ = require('underscore');
+var {ROUTES} = require('./constants');
 
-var TodoList = require('./components/todolist');
-var TodoStore = require('./stores/todo');
-
-var style = require('./style.scss');
 
 var App = React.createClass({
   getInitialState: function() {
     return {
-      count: 10,
+      ROUTE: ROUTES.TODOS,
       todos: []
     };
   },
 
   componentDidMount: function() {
-    var router = Director.Router({
-      '/foo': this.setState.bind(this, {count: 10}),
-      '/bar': this.setState.bind(this, {count: 11}),
+    var routeHandlers = {};
+    _.each(ROUTES, (route, routeName) => {
+      routeHandlers[routeName] = this.setState.bind(this, ROUTES[routeName]);
     });
+    var router = Director.Router(routeHandlers);
 
-    router.init('/foo');
-
-    TodoStore.addChangeListener(() => {
-      this.setState({ todos: TodoStore.getTodos()});
-    });
-
-    TodoStore.fetchTodos();
+    // default route
+    router.init(ROUTES.TODOS);
   },
 
   render: function() {
-    return (
-      <div>
-        <p><a href='#bar'>URL 1</a> | <a href="#foo">URL 2</a></p>
-        <p><b>{this.state.count}</b></p>
-        <TodoList todos={this.state.todos} />
-      </div>
-    );
+    switch (this.state.ROUTE) {
+      case ROUTES.TODOS:
+        return (
+          <TodoController />
+        );
+      break;
+    }
   }
 });
 
-//debug
-global.React = React;
-
-React.render(<App />, document.body);
-
+module.exports = App;

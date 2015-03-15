@@ -1,27 +1,27 @@
 var webpack = require('webpack');
 var path = require('path');
-var AppCachePlugin = require('appcache-webpack-plugin');
 
-var _production = !!process.env.PROD;
+var environment = process.env.NODE_ENV;
+var isProduction = (environment === "production");
 
-var ENTRIES = ['./src/app.jsx'];
+var ENTRIES = ['./src/main.js'];
 
-if (!_production) {
+if (!environment === "production") {
   ENTRIES.unshift('webpack/hot/dev-server');
 }
 
 BOOSTRAP_PATH="./node_modules/bootstrap-sass/assets/stylesheets/"
 
 module.exports = {
-  devtool: _production ? false : 'eval',
+  devtool: isProduction ? false : 'eval',
   entry: {
     app: ENTRIES
   },
   output: {
-    pathinfo: !_production,
+    pathinfo: !isProduction,
     publicPath: '/dist/',
     path: __dirname + "/dist",
-    filename: 'app.js',
+    filename: 'main.js',
   },
   module: {
     loaders: [
@@ -42,13 +42,6 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
-  plugins: [
-    new AppCachePlugin({
-      cache: [],
-      network: null,  // No network access allowed!
-      fallback: []
-    })
-  ],
   externals: {
     "aws-sdk": "AWS"
   }
