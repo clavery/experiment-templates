@@ -53,3 +53,8 @@ Dispatcher.register(TodoActionTypes.TODO_CREATE, (newTodo) => {
   TodoStore._emitChange();
 });
 
+Dispatcher.register(TodoActionTypes.TODO_DELETE, (id) => {
+  syncingTodos[id] = true;
+  TodoStore._emitChange();
+});
+

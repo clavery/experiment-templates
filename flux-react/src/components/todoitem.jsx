@@ -50,12 +50,20 @@ var TodoItem = React.createClass({
       );
     }
 
-    var classname = this.props.loading ? "list-group-item loading" : "list-group-item";
-    return (
-      <li className={classname} style={styles}>
+    var badge = (
         <span className="badge">
           <span className="glyphicon glyphicon-remove" onClick={this._removeTodo}></span>
         </span>
+    );
+
+    if (this.props.loading) {
+      badge = null;
+    }
+
+    var classname = this.props.loading ? "list-group-item loading" : "list-group-item";
+    return (
+      <li className={classname} style={styles}>
+        {badge}
         {todoBody}
       </li>
     );

@@ -16,7 +16,7 @@ exports.TodoActionCreators = {
   },
 
   deleteTodo(id) {
-    Dispatcher.dispatch(TodoActionTypes.TODO_DELETE, {_id: id});
+    Dispatcher.dispatch(TodoActionTypes.TODO_DELETE, id);
 
     TodoClient.deleteTodo(id).then( (todos) => {
       Dispatcher.dispatch(TodoActionTypes.TODOS_FETCH_SUCCESS, todos);
