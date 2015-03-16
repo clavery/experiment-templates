@@ -43,7 +43,11 @@ Dispatcher.register(TodoActionTypes.TODOS_FETCH, () => {
 Dispatcher.register(TodoActionTypes.TODOS_FETCH_SUCCESS, (newTodos) => {
   todos = newTodos;
   loading = false;
-  syncingTodos = {};
+  _.each(todos, (t) => {
+    if (t._id in syncingTodos) {
+      delete syncingTodos[t._id];
+    }
+  });
   TodoStore._emitChange();
 });
 
