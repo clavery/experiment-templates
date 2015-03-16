@@ -6,14 +6,10 @@ var isProduction = (environment === "production");
 
 var ENTRIES = ['./src/main.js'];
 
-if (!environment === "production") {
-  ENTRIES.unshift('webpack/hot/dev-server');
-}
-
 BOOSTRAP_PATH="./node_modules/bootstrap-sass/assets/stylesheets/"
 
 module.exports = {
-  devtool: isProduction ? false : 'eval',
+  devtool: isProduction ? false : '#inline-source-map',
   entry: {
     app: ENTRIES
   },
