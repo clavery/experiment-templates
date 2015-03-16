@@ -18,7 +18,7 @@ var TodoController = React.createClass({
     });
   },
 
-  componentDidMount: function() {
+  componentDidMount() {
     TodoStore.addChangeListener(this._onChange);
     TodoActionCreators.fetchAllTodos();
   },
