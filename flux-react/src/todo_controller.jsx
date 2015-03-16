@@ -11,13 +11,20 @@ var TodoController = React.createClass({
     };
   },
 
-  componentDidMount: function() {
-    TodoStore.addChangeListener(() => {
-      this.setState({ todos: TodoStore.getTodos()});
-      this.setState({ loading: TodoStore.loading});
+  _onChange() {
+    this.setState({
+      todos: TodoStore.getAllTodos(),
+      loading: TodoStore.isLoading()
     });
+  },
 
+  componentDidMount: function() {
+    TodoStore.addChangeListener(this._onChange);
     TodoActionCreators.fetchAllTodos();
+  },
+
+  componentWillUnmount() {
+    TodoStore.removeChangeListener(this._onChange);
   },
 
   render: function() {

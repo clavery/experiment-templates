@@ -32,6 +32,10 @@ function saveJSON(key, data, success, error) {
   });
 }
 
+function copy(src) {
+  return _.map(src, (o) => _.extend({}, o));
+}
+
 // store entire state in memory for syncing
 var cache = [];
 
@@ -40,7 +44,7 @@ var TodoClient = {
     return new Promise(function(resolve, reject) {
       loadJSON(KEY, (data) => {
         cache = data;
-        resolve(data);
+        resolve(copy(cache));
       }, (error) => {
         reject(error);
       });
@@ -48,7 +52,15 @@ var TodoClient = {
   },
 
   createTodo(id, data) {
-    //TODO
+    return new Promise(function(resolve, reject) {
+      cache.push(_.extend({}, data));
+
+      saveJSON(KEY, cache, (data) => {
+        resolve(copy(cache));
+      }, (error) => {
+        reject(error);
+      });
+    });
   },
 
   deleteTodo(id) {
@@ -57,18 +69,26 @@ var TodoClient = {
       if (item) {
         cache.splice(cache.indexOf(item), 1);
         saveJSON(KEY, cache, (data) => {
-          resolve(cache);
+          resolve(copy(cache));
         }, (error) => {
           reject(error);
         });
       } else {
-        resolve(cache);
+        resolve(copy(cache));
       }
     });
   },
 
   updateTodo(id, data) {
-    //TODO
+    return new Promise(function(resolve, reject) {
+      var item = _.findWhere(cache, {_id:id});
+      _.extend(item, data);
+      saveJSON(KEY, cache, (data) => {
+        resolve(copy(cache));
+      }, (error) => {
+        reject(error);
+      });
+    });
   }
 };
 

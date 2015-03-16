@@ -1,7 +1,8 @@
 var React = require('react');
 var m = require('../util').m;
-var TodoStore = require('../stores/todo');
 var TodoItem = require('./todoitem');
+var TodoStore = require('../stores/todo');
+var {TodoActionCreators} = require('../action_creators');
 
 var TodoList = React.createClass({
   getPropTypes: function() {
@@ -11,7 +12,7 @@ var TodoList = React.createClass({
   createNewTodo(event) {
     if (event.keyCode === 13) {
       event.preventDefault();
-      TodoStore.createTodo(event.target.value);
+      TodoActionCreators.createTodo(event.target.value);
       event.target.value = '';
     }
   },
@@ -21,13 +22,13 @@ var TodoList = React.createClass({
 
     var todoItems = this.props.todos.map(function (todo) {
       return (
-        <TodoItem key={todo._id} todo={todo} />
+        <TodoItem key={todo._id} todo={todo} loading={TodoStore.isTodoSyncing(todo._id)}/>
       );
     });
 
     var classes = "";
     if (this.props.isLoading) {
-      classes = "loading";
+      classes = "list-loading";
     }
 
     return (

@@ -15,7 +15,7 @@ var TodoItem = React.createClass({
 
   _onKeyDown(event) {
     if (event.keyCode === 13) {
-      TodoStore.updateTodo(this.props.todo._id, event.target.value);
+      TodoActionCreators.updateTodo(this.props.todo._id, event.target.value);
       this.setState({ editing: false });
     }
   },
@@ -50,8 +50,9 @@ var TodoItem = React.createClass({
       );
     }
 
+    var classname = this.props.loading ? "list-group-item loading" : "list-group-item";
     return (
-      <li className="list-group-item" style={styles}>
+      <li className={classname} style={styles}>
         <span className="badge">
           <span className="glyphicon glyphicon-remove" onClick={this._removeTodo}></span>
         </span>

@@ -1,14 +1,15 @@
+var _ = require('underscore');
 var {EventEmitter} = require('events');
 var assign = require('object-assign');
 var Dispatcher = require('../dispatcher');
 var {TodoActionTypes} = require('../constants');
 
 var CHANGE_EVENT = 'change';
+var todos = [];
+var loading = false;
+var syncingTodos = {};
 
 var TodoStore = assign({}, EventEmitter.prototype, {
-  loading : false,
-  todos : [],
-
   addChangeListener(cb) {
     this.on(CHANGE_EVENT, cb);
   },
@@ -16,27 +17,39 @@ var TodoStore = assign({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, cb);
   },
 
-  _registerWithDispatcher() {
-    Dispatcher.register(TodoActionTypes.TODOS_FETCH, this._loadingTodos.bind(this));
-    Dispatcher.register(TodoActionTypes.TODOS_FETCH_SUCCESS, this._todosLoaded.bind(this));
-  },
-
-  _loadingTodos() {
-    this.loading = true;
+  _emitChange() {
     this.emit(CHANGE_EVENT);
   },
 
-  _todosLoaded(todos) {
-    this.loading = false;
-    this.todos = todos;
-    this.emit(CHANGE_EVENT);
+  getAllTodos() {
+    return todos;
   },
 
-  getTodos() {
-    return this.todos;
+  isTodoSyncing(id) {
+    return !!syncingTodos[id];
+  },
+
+  isLoading() {
+    return loading;
   }
 });
-
-TodoStore._registerWithDispatcher();
-
 module.exports = TodoStore;
+
+Dispatcher.register(TodoActionTypes.TODOS_FETCH, () => {
+  loading = true;
+  TodoStore._emitChange();
+});
+
+Dispatcher.register(TodoActionTypes.TODOS_FETCH_SUCCESS, (newTodos) => {
+  todos = newTodos;
+  loading = false;
+  syncingTodos = {};
+  TodoStore._emitChange();
+});
+
+Dispatcher.register(TodoActionTypes.TODO_CREATE, (newTodo) => {
+  syncingTodos[newTodo._id] = true;
+  todos.push(newTodo);
+  TodoStore._emitChange();
+});
+
