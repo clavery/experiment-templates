@@ -11,12 +11,13 @@ var React = require('react/addons');
 var TestUtils = React.addons.TestUtils;
 
 describe('TodoController', function() {
+  var TodoStore = require('../stores/todo');
+  var TodoController = require('../todo_controller');
+
   beforeEach(function() {
-    TodoStore = require('../stores/todo');
   });
 
   it('Should register with the TodoStore', function() {
-    var TodoController = require('../todo_controller');
     var instance = TestUtils.renderIntoDocument(<TodoController />);
 
     expect(instance).toBeDefined();
