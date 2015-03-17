@@ -1,4 +1,5 @@
-var AWS = require('aws-sdk');
+// nastiness because aws-sdk hates webpack
+var AWS = require('exports?AWS!aws-sdk');
 var _ = require('underscore');
 var Promise = require('es6-promise').Promise;
 

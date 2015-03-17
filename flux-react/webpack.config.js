@@ -23,11 +23,11 @@ module.exports = {
     loaders: [
       { test: /\.js$/, exclude: /node_modules/, loaders: ['jsx-loader?harmony']},
       { test: /\.jsx$/, exclude: /node_modules/, loaders: ['react-hot', 'jsx-loader?harmony']},
-      { test: /\.json$/, exclude: /node_modules/, loaders: ['json-loader']},
+      { test: /\.json$/, loaders: ['json-loader']},
       { test: /\.css$/, exclude: /node_modules/, loaders: ['style', 'css?sourceMap']},
       { 
         test: /\.scss$/, exclude: /node_modules/, loaders: ['style', 'css',
-        'sass?outputStyle=expanded&includePaths[]=' + (path.resolve(__dirname, BOOSTRAP_PATH))
+        'sass?sourceMap=map&outputStyle=expanded&includePaths[]=' + (path.resolve(__dirname, BOOSTRAP_PATH))
       ]},
       { test: /\.woff2?$/,   loader: "url-loader?limit=10000&mimetype=application/font-woff" },
       { test: /\.ttf$/,    loader: "file-loader" },
@@ -36,9 +36,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
-  },
-  externals: {
-    "aws-sdk": "AWS"
+    extensions: ['', '.js', '.jsx'],
+    root: [path.join(__dirname, "lib")]
   }
 };
