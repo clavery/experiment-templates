@@ -1,6 +1,5 @@
 var React = require('react/addons');
 var {m}  = require('../util');
-var TodoStore = require('../stores/todo');
 var {TodoActionCreators} = require('../action_creators');
 
 
