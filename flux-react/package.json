@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "dev-server": "webpack-dev-server --debug --hot --inline --progress --colors --no-color",
-    "build": "NODE_ENV='production' webpack -p --progress --profile --colors"
+    "build": "NODE_ENV='production' webpack -p --progress --colors"
   },
   "author": "",
   "license": "ISC",
