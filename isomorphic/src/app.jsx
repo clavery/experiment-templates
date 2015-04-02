@@ -24,6 +24,31 @@ var App = React.createClass({
   }
 });
 
+var Router = React.createClass({
+  getInitialState: function() {
+    return {
+      url: '/'
+    };
+  },
+
+  componentDidMount: function() {
+    var router = new director.Router({
+      '/': this.setState.bind(this, { url: '/'}),
+      '/somethingelse' : this.setState.bind(this, { url: '/'})
+    });
+  },
+
+  render: function() {
+    switch (this.state.url) {
+      case '/':
+        return ( <MainView /> );
+      break;
+      case '/somethingelse':
+        return ( <SomeOtherView /> );
+      break;
+    }
+  }
+});
 //debug
 global.React = React;
 

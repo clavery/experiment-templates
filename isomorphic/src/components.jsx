@@ -1,6 +1,6 @@
 var React = require("react");
 var Foo = React.createClass({
-  render: function() {
+  render() {
     if (!this.props.data || this.props.data.length === 0) {
       return (
         <span>No data</span>
