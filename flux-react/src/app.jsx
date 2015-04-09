@@ -4,7 +4,6 @@ var TodoController = require('./todo_controller');
 var _ = require('underscore');
 var {ROUTES} = require('./constants');
 
-
 var App = React.createClass({
   getInitialState: function() {
     return {

@@ -1,6 +1,6 @@
 var React = require('react');
+var _ = require('underscore');
 var App = require('./app');
-
 var style = require('./style.scss');
 
 // render app (router component) into page
