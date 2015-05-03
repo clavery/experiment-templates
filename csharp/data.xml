@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<apps>
+  <app name="stuff">
+    <parent></parent>
+  </app>
+  <app name="stuff2">
+    <parent>stuff</parent>
+  </app>
+</apps>

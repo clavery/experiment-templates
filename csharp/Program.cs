@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace ConsoleApplication
 {
@@ -15,6 +16,8 @@ namespace ConsoleApplication
                 "Four",
                 "Five"
             };
+            
+            //XDocument xdoc = XDocument.Load("data.xml");
         }
     }
 }
