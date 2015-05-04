@@ -1,7 +1,8 @@
 {
   "version": "1.0.0-*",
   "dependencies": {
-    "System.Xml.XDocument" : "4.0.10-beta-22816"
+    "System.Xml.XDocument" : "4.0.10-beta-22816",
+    "Newtonsoft.Json" : "6.0.8"
   },
   "commands": {
     "run": "run"
