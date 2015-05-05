@@ -1,0 +1,23 @@
+{
+  "version": "1.0.0-*",
+  "dependencies": {
+    "System.Xml.XDocument" : "4.0.10-beta-22816",
+    "Newtonsoft.Json" : "6.0.8"
+  },
+  "commands": {
+    "run": "run"
+  },
+  
+  "frameworks": {
+    "net45": { },
+    "dnx451": {},
+    "dnxcore50": {
+      "dependencies": {
+        "System.Console": "4.0.0-beta-*",
+        "System.Linq": "4.0.0-beta-*"
+
+
+      }
+    }
+  }
+}

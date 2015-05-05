@@ -36,6 +36,6 @@ export LAST_EXPERIMENT="${EXPERIMENTS_DIR}/${DEST}"
 
 if [ -f "./.bootstrap.sh" ]; then
   echo "Running Bootstrap"
-  ./.bootstrap.sh
+  ./.bootstrap.sh "${EXPERIMENTS_DIR}/${DEST}" "$2"
 fi
 

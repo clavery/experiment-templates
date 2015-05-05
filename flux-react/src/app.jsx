@@ -5,7 +5,7 @@ var _ = require('underscore');
 var {ROUTES} = require('./constants');
 
 var App = React.createClass({
-  getInitialState: function() {
+  getInitialState() {
     return {
       ROUTE: ROUTES.TODOS,
       todos: []
@@ -26,10 +26,9 @@ var App = React.createClass({
   render: function() {
     switch (this.state.ROUTE) {
       case ROUTES.TODOS:
-        return (
-          <TodoController />
-        );
-      break;
+        return ( <TodoController /> );
+      default:
+        break;
     }
   }
 });
