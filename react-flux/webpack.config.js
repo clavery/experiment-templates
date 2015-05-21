@@ -1,9 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
 
-var environment = process.env.NODE_ENV;
-var production = (environment === "production");
-
 var ENTRIES = ['./src/main.js'];
 
 BOOSTRAP_PATH="./node_modules/bootstrap-sass/assets/stylesheets/"
@@ -42,7 +39,7 @@ var config = {
 };
 
 // production "build" options
-if (production) {
+if (process.env.NODE_ENV === "production") {
   config.debug = false;
   config.bail = true;
   config.devtool = false;

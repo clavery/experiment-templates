@@ -1,8 +1,6 @@
-# webpack-6to5-react-example
+# Webpack Examples
 
-Boilerplate with React 12.2 using webpack as a module system and build tool.
-Includes hot module reloading (HMR) for react components and stylesheets.
-
+Some examples of using webpack with CSS, Images, etc
 
 ## Install
 
