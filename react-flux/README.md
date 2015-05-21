@@ -1,4 +1,4 @@
-# flux-react-example
+# react-flux-example
 
 Boilerplate with React 12.2 using webpack as a module system and build tool.
 Includes hot module reloading (HMR) for react components and stylesheets.
@@ -15,7 +15,7 @@ $ npm install
 ## Dev
 
 ```sh
-$ npm run dev-server
+$ npm run dev
 $ open http://localhost:8080/
 ```
 
@@ -24,7 +24,3 @@ $ open http://localhost:8080/
 ```sh
 $ npm run build
 ```
-
-## TODO
-
-- sass-loader needs proper sourcemap support

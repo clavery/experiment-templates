@@ -13,7 +13,7 @@ $ npm install
 ## Dev
 
 ```sh
-$ npm run dev-server
+$ npm run dev
 $ open http://localhost:8080/
 ```
 
@@ -23,6 +23,3 @@ $ open http://localhost:8080/
 $ npm run build
 ```
 
-## TODO
-
-- sass-loader needs proper sourcemap support

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "dev-server": "webpack-dev-server --debug --hot --inline --progress --colors --no-color",
+    "predev": "npm install",
+    "dev": "webpack-dev-server --debug --hot --inline --progress --colors --no-color",
     "build": "NODE_ENV='production' webpack -p --progress --colors"
   },
   "author": "",
