@@ -3,8 +3,6 @@ var path = require('path');
 
 var ENTRIES = ['./src/main.js'];
 
-BOOSTRAP_PATH="./node_modules/bootstrap-sass/assets/stylesheets/"
-
 var config = {
   devtool: '#inline-source-map',
   entry: {
@@ -14,7 +12,7 @@ var config = {
     pathinfo: true,
     publicPath: '/dist/',
     path: __dirname + "/dist",
-    filename: 'main.js',
+    filename: '[name].js',
   },
   module: {
     loaders: [
@@ -22,18 +20,15 @@ var config = {
       { test: /\.jsx$/, exclude: /node_modules/, loaders: ['react-hot', 'jsx-loader?harmony']},
       { test: /\.json$/, loaders: ['json-loader']},
       { test: /\.css$/, exclude: /node_modules/, loaders: ['style', 'css?sourceMap']},
-      { test: /\.scss$/, exclude: /node_modules/, loaders: ['style', 'css',
-        'sass?sourceMap=map&outputStyle=expanded&includePaths[]=' +
-          (path.resolve(__dirname, BOOSTRAP_PATH)) ]},
-      { test: /\.woff2?$/,   loader: "file-loader" },
-      { test: /\.ttf$/,    loader: "file-loader" },
-      { test: /\.eot$/,    loader: "file-loader" },
-      { test: /\.svg$/,    loader: "file-loader" }
+      { test: /\.scss$/, exclude: /node_modules/, loader: 'style!css!sass?sourceMap=map'}
+      { test: /\.woff2?$/, loader: "file-loader" },
+      { test: /\.ttf$/, loader: "file-loader" },
+      { test: /\.eot$/, loader: "file-loader" },
+      { test: /\.svg$/, loader: "file-loader" }
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
-    root: [path.join(__dirname, "lib")]
+    extensions: ['', '.js', '.jsx']
   },
   plugins: []
 };
