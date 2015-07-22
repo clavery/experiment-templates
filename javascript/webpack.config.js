@@ -16,7 +16,7 @@ var config = {
   },
   module: {
     loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"},
+      { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader?stage=1"},
       { test: /\.json$/, loaders: ['json-loader']},
       { test: /\.css$/, exclude: /node_modules/, loaders: ['style', 'css?sourceMap']},
       { test: /\.scss$/, exclude: /node_modules/,
