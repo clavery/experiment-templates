@@ -2,8 +2,9 @@
 
 set -m
 npm install
-bower install
-grunt &
-mvim -O index.html js/app.js
-open http://localhost:9001
+npm run dev &
+sleep 3
+
+mvim -O index.html js/main.js
+open http://localhost:8080/
 fg
