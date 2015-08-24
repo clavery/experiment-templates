@@ -1,0 +1,17 @@
+{
+  "name": "testjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "jsdom": "^6.1.0"
+  },
+  "devDependencies": {
+    "jsdom": "^6.1.0"
+  },
+  "scripts": {
+    "test": "iojs node_modules/.bin/mocha -w"
+  },
+  "author": "",
+  "license": "ISC"
+}
